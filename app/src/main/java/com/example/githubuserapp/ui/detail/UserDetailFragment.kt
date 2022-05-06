@@ -19,6 +19,8 @@ class UserDetailFragment: BaseFragment<UserDetailViewModel, FragmentUserDetailBi
 
     override fun getViewBinding() = FragmentUserDetailBinding.inflate(layoutInflater)
 
+    override fun initDataBinding() = Unit
+
     override fun initFragment() {
         binding.userImage.loadCenterCrop(userDetailData?.avatar_url!!)
         binding.title.text = userDetailData?.login
@@ -37,4 +39,5 @@ class UserDetailFragment: BaseFragment<UserDetailViewModel, FragmentUserDetailBi
     override fun observeData() = Unit
 
     private fun openWebView(url: String) = startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)))
+
 }

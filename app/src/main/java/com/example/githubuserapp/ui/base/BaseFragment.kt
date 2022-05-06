@@ -20,11 +20,13 @@ abstract class BaseFragment<VM: BaseViewModel, VB: ViewBinding>: Fragment() {
     protected val binding get() = _binding!!
 
     abstract fun getViewBinding(): VB
+    abstract fun initDataBinding()
 
     private lateinit var fetchJob: Job
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = getViewBinding()
+        initDataBinding()
         return binding.root
     }
 

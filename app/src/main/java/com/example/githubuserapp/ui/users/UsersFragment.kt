@@ -3,6 +3,7 @@ package com.example.githubuserapp.ui.users
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.githubuserapp.R
 import com.example.githubuserapp.data.response.GithubData
 import com.example.githubuserapp.databinding.FragmentUsersBinding
@@ -10,6 +11,7 @@ import com.example.githubuserapp.extensions.addFragment
 import com.example.githubuserapp.ui.base.BaseFragment
 import com.example.githubuserapp.ui.adapter.UserListAdapter
 import com.example.githubuserapp.ui.detail.UserDetailFragment
+import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>()  {
@@ -32,8 +34,14 @@ class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>()  {
 
     override fun getViewBinding() = FragmentUsersBinding.inflate(layoutInflater)
 
+    override fun initDataBinding() {
+        binding.userViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
     override fun initFragment() {
         initAdapter()
+        tabSetting()
     }
 
     private fun initAdapter() = with(binding) {
@@ -43,13 +51,25 @@ class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>()  {
         }
     }
 
+    private fun tabSetting() = with(binding) {
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                recyclerView.scrollToPosition(0)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
+        })
+    }
+
     override fun observeData() {
         viewModel.userState.onUiState(
             error = { handleError() },
             loading = { handleLoading() },
             success = {
                 handleSuccess(it)
-            }
+            },
+            finish = { handleComplete() }
         )
     }
 
@@ -59,10 +79,14 @@ class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>()  {
     }
 
     private fun handleLoading() = with(binding) {
-
+        userListLoading.isVisible = true
     }
 
-    private fun handleSuccess(data: List<GithubData>) = with(binding) {
-        userListAdapter.set(data)
+    private fun handleSuccess(data: List<GithubData>) {
+        viewModel.setUserList(data as ArrayList<GithubData>)
+    }
+
+    private fun handleComplete() = with(binding) {
+        userListLoading.isVisible = false
     }
 }

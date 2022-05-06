@@ -9,25 +9,29 @@ import com.example.githubuserapp.utility.loadCenterCrop
 
 class UserListAdapter(
     private val callback: (data: GithubData) -> Unit
-) : RecyclerView.Adapter<UserListAdapter.UserItemViewHolder>() {
-    private val adapterList = mutableListOf<GithubData>()
+) : CustomRecyclerViewAdapter() {
+
+    private val adapterList = arrayListOf<GithubData>()
+
+    override fun <T> replaceData(list: List<T>?) {
+        list?.let {
+            adapterList.clear()
+            adapterList.addAll(list as ArrayList<GithubData>)
+            notifyDataSetChanged()
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserItemViewHolder {
         val view = ItemUsersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserItemViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: UserItemViewHolder, position: Int) {
-        holder.bindData(adapterList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as UserItemViewHolder).bindData(adapterList[position])
     }
 
     override fun getItemCount() = adapterList.size
 
-    fun set(list: List<GithubData>) {
-        adapterList.clear()
-        adapterList.addAll(list)
-        notifyDataSetChanged()
-    }
 
     inner class UserItemViewHolder(
         private val binding: ItemUsersBinding
