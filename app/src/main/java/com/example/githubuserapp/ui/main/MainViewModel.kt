@@ -38,7 +38,7 @@ class MainViewModel(
         ResultState.UnInitialize)
     val userLikeResponseState = _userLikeResponseState.asStateFlow()
 
-    override fun fetchData(): Job = viewModelScope.launch {
+    fun fetchData(): Job = viewModelScope.launch {
         getGithubUseCase.invoke()
             .map { it.map { githubData ->
                 var userLikeEntity = githubData.toEntity()

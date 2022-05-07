@@ -44,6 +44,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        onTabSelected(binding.tabLayout.selectedTabPosition)
+    }
+
     private fun tabSetting() = with(binding) {
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

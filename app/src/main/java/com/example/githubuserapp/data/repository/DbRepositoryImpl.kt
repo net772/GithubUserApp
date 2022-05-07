@@ -13,17 +13,13 @@ class DbRepositoryImpl(
 
     override fun getUserAllLike(): Flow<List<UserLikeEntity>> = flow {
         emit( userLikeDao.getAll())
-    }.map {
-        Log.d("동현","getUserAllLike : $it")
-        it }
+    }.map { it }
 
 
     override fun getUserLike(id: Long): Flow<UserLikeEntity> {
         return  flow {
             emit(userLikeDao.get(id))
-        }.map {
-            it
-        }
+        }.map { it }
 
     }
     override suspend fun insertUserLiked(userLikeEntity: UserLikeEntity) {

@@ -34,8 +34,7 @@ class UserDetailViewModel(
     private val _userDetailStateLiveData = MutableStateFlow<ResultState<UserLikeEntity>>(ResultState.UnInitialize)
     val userDetailStateLiveData = _userDetailStateLiveData.asStateFlow()
 
-    override fun fetchData() = viewModelScope.launch {
-        Log.d("동현"," _userDetailStateLiveData.value : ${ _userDetailStateLiveData.value}")
+    fun fetchData() = viewModelScope.launch {
         _userDetailStateLiveData.value = ResultState.Success(userLikeEntity)
         setLikeState(userLikeEntity.state)
     }

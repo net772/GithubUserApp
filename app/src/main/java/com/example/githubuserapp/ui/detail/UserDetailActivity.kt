@@ -24,6 +24,7 @@ class UserDetailActivity: BaseActivity<UserDetailViewModel, ActivityUserDetailBi
     override fun getViewBinding() = ActivityUserDetailBinding.inflate(layoutInflater)
 
     override fun initActivity() {
+        viewModel.fetchData()
         setClickListeners()
         observeViewModel()
     }

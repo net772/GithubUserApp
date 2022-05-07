@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.githubuserapp.state.ResultState
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,8 +21,6 @@ abstract class BaseActivity<VM: BaseViewModel, VB: ViewBinding>: AppCompatActivi
 
     protected open fun initActivity() = Unit
 
-    private lateinit var fetchJob: Job
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = getViewBinding()
@@ -31,13 +28,9 @@ abstract class BaseActivity<VM: BaseViewModel, VB: ViewBinding>: AppCompatActivi
 
         initActivity()
         observeData()
-        fetchJob = viewModel.fetchData()
     }
 
     override fun onDestroy() {
-        if (fetchJob.isActive) {
-            fetchJob.cancel()
-        }
         _binding = null
         super.onDestroy()
     }
