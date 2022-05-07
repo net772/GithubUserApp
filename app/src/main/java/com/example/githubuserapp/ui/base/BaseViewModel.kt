@@ -3,7 +3,7 @@ package com.example.githubuserapp.ui.base
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.baseproject.utility.config.KoinConstants
+import com.example.githubuserapp.utility.config.KoinConstants
 import com.example.githubuserapp.state.ResultState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -18,13 +18,7 @@ abstract class BaseViewModel(
 
     abstract fun fetchData(): Job
 
-    protected val ioDispatcher: CoroutineDispatcher by inject(named(KoinConstants.DISPATCHER_IO))
-
-    protected fun <T> Flow<T>.onResult(collect: (T) -> Unit) {
-        flowOn(ioDispatcher).onEach { item ->
-            collect.invoke(item)
-        }.launchIn(viewModelScope)
-    }
+    private val ioDispatcher: CoroutineDispatcher by inject(named(KoinConstants.DISPATCHER_IO))
 
     protected fun <T> Flow<T>.onState(collect: (ResultState<T>) -> Unit) {
         flowOn(ioDispatcher)

@@ -4,30 +4,25 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.example.githubuserapp.R
 import com.example.githubuserapp.data.entity.UserLikeEntity
-import com.example.githubuserapp.data.response.GithubData
-import com.example.githubuserapp.databinding.FragmentUserDetailBinding
-import com.example.githubuserapp.extensions.removeFragment
-import com.example.githubuserapp.ui.base.BaseFragment
-import com.example.githubuserapp.ui.users.UsersFragment
+import com.example.githubuserapp.databinding.ActivityUserDetailBinding
+import com.example.githubuserapp.ui.base.BaseActivity
+import com.example.githubuserapp.ui.detail.UserDetailViewModel.Companion.KEY_USERDATA
 import com.example.githubuserapp.utility.loadCenterCrop
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class UserDetailFragment: BaseFragment<UserDetailViewModel, FragmentUserDetailBinding>() {
+class UserDetailActivity: BaseActivity<UserDetailViewModel, ActivityUserDetailBinding>() {
 
-    private val userDetailData by lazy { arguments?.getParcelable<UserLikeEntity>("USERDATA") }
+    private val userDetailData by lazy { intent.getParcelableExtra<UserLikeEntity>(KEY_USERDATA) }
     override val viewModel by viewModel<UserDetailViewModel> {
         parametersOf(userDetailData)
     }
 
-    override fun getViewBinding() = FragmentUserDetailBinding.inflate(layoutInflater)
+    override fun getViewBinding() = ActivityUserDetailBinding.inflate(layoutInflater)
 
-    override fun initDataBinding() = Unit
-
-    override fun initFragment() {
+    override fun initActivity() {
         setClickListeners()
         observeViewModel()
     }
@@ -58,7 +53,7 @@ class UserDetailFragment: BaseFragment<UserDetailViewModel, FragmentUserDetailBi
 
     @SuppressLint("ShowToast")
     private fun handleError() {
-        Toast.makeText(requireContext() , "네트워크 오류입니다.", Toast.LENGTH_SHORT )
+        Toast.makeText(this , "네트워크 오류입니다.", Toast.LENGTH_SHORT )
     }
 
     private fun handleSuccess(data: UserLikeEntity) {

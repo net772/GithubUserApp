@@ -10,8 +10,6 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 
 private val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
 
-fun ImageView.clear() = Glide.with(context).clear(this)
-
 fun ImageView.loadCenterCrop(url: String, corner: Float = 0f) {
     Glide.with(this)
         .load(url)

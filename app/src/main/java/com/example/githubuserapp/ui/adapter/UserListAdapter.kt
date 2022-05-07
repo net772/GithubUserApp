@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubuserapp.R
 import com.example.githubuserapp.data.entity.UserLikeEntity
-import com.example.githubuserapp.data.response.GithubData
 import com.example.githubuserapp.databinding.ItemUsersBinding
 import com.example.githubuserapp.utility.loadCenterCrop
 

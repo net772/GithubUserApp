@@ -1,7 +1,6 @@
 package com.example.githubuserapp.ui.detail
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,8 +21,11 @@ class UserDetailViewModel(
     private val reqInsertUserLikeUseCase: ReqInsertUserLikeUseCase,
     private val getUserLikeUseCase: GetUserLikeUseCase,
     private val reqDeleteUserLikedUseCase: ReqDeleteUserLikedUseCase,
-
     ) : BaseViewModel(app) {
+
+    companion object {
+        const val KEY_USERDATA = "KEY_USERDATA"
+    }
 
     private val _likeState = MutableLiveData<Boolean>()
     val likeState: LiveData<Boolean> get() = _likeState

@@ -1,6 +1,6 @@
 package com.example.githubuserapp.di
 
-import com.example.baseproject.utility.config.KoinConstants
+import com.example.githubuserapp.utility.config.KoinConstants
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.qualifier.named
 import org.koin.dsl.module

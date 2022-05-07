@@ -1,4 +1,4 @@
-package com.example.baseproject.utility.config
+package com.example.githubuserapp.utility.config
 
 object KoinConstants {
     /* 코루틴 디스패처 Named */
