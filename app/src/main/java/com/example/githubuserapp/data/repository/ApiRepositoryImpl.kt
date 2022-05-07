@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-class RepositoryImpl(
+class  ApiRepositoryImpl(
     private val service: ApiService
-) : Repository {
+) : ApiRepository {
 
     override fun getGitHub(): Flow<List<GithubData>> = flow {
         emit(service.getGithub())

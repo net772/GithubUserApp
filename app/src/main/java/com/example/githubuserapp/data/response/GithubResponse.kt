@@ -1,6 +1,7 @@
 package com.example.githubuserapp.data.response
 
 import android.os.Parcelable
+import com.example.githubuserapp.data.entity.UserLikeEntity
 import kotlinx.parcelize.Parcelize
 
 data class GithubResponse(
@@ -11,9 +12,20 @@ data class GithubResponse(
 
 @Parcelize
 data class GithubData(
+    val id: Long,
     val avatar_url: String,
     val login: String,
     val html_url: String
-): Parcelable
+): Parcelable {
+
+    fun toEntity() = UserLikeEntity(
+        id = id,
+        avatar_url = avatar_url,
+        login = login,
+        html_url = html_url,
+        state = false
+
+    )
+}
 
 

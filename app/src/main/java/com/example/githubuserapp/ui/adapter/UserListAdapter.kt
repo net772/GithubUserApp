@@ -3,20 +3,22 @@ package com.example.githubuserapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubuserapp.R
+import com.example.githubuserapp.data.entity.UserLikeEntity
 import com.example.githubuserapp.data.response.GithubData
 import com.example.githubuserapp.databinding.ItemUsersBinding
 import com.example.githubuserapp.utility.loadCenterCrop
 
 class UserListAdapter(
-    private val callback: (data: GithubData) -> Unit
+    private val callback: (data: UserLikeEntity) -> Unit
 ) : CustomRecyclerViewAdapter() {
 
-    private val adapterList = arrayListOf<GithubData>()
+    private val adapterList = arrayListOf<UserLikeEntity>()
 
     override fun <T> replaceData(list: List<T>?) {
         list?.let {
             adapterList.clear()
-            adapterList.addAll(list as ArrayList<GithubData>)
+            adapterList.addAll(list as ArrayList<UserLikeEntity>)
             notifyDataSetChanged()
         }
     }
@@ -36,10 +38,13 @@ class UserListAdapter(
     inner class UserItemViewHolder(
         private val binding: ItemUsersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bindData(data: GithubData) = with(binding) {
+        fun bindData(data: UserLikeEntity) = with(binding) {
             userImage.loadCenterCrop(data.avatar_url)
             title.text = data.login
             content.text = data.html_url
+
+            if (data.state) likeImageButton.setImageResource(R.drawable.ic_like_on)
+            else likeImageButton.setImageResource(R.drawable.ic_like_off)
 
             root.setOnClickListener {
                 callback.invoke(data)

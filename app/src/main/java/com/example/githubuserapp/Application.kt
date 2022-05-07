@@ -20,7 +20,8 @@ class Application: Application() {
                 networkModule,
                 useCaseModule,
                 viewModelModule,
-                repositoryModule
+                repositoryModule,
+                dataBaseModule
             )
         }
     }

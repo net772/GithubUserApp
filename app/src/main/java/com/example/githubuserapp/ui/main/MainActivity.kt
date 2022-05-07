@@ -1,5 +1,6 @@
 package com.example.githubuserapp.ui.main
 
+import androidx.fragment.app.Fragment
 import com.example.githubuserapp.R
 import com.example.githubuserapp.databinding.ActivityMainBinding
 import com.example.githubuserapp.extensions.addFragment
@@ -15,13 +16,14 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun getViewBinding(): ActivityMainBinding =ActivityMainBinding.inflate(layoutInflater)
 
     override fun initActivity() {
-        addFragment()
-    }
-
-    private fun addFragment() {
         usersFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as UsersFragment?
                 ?: UsersFragment.newInstance()
-        addFragment(R.id.fragmentContainer, usersFragment)
+        addFragment(usersFragment!!)
+    }
+
+    fun addFragment(fragment: Fragment) {
+
+        addFragment(R.id.fragmentContainer, fragment)
     }
 }

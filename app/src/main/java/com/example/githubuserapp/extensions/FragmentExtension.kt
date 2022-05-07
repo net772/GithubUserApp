@@ -12,7 +12,7 @@ fun Fragment.addFragment(containerViewId:Int, mFragment: Fragment, backStack: Bo
 }
 
 fun Fragment.removeFragment(mFragment: Fragment) {
-    activity?.let {
+        activity?.let {
         val manager = it.supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.remove(mFragment)
