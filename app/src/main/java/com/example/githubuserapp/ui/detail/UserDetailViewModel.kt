@@ -1,6 +1,7 @@
 package com.example.githubuserapp.ui.detail
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -34,6 +35,7 @@ class UserDetailViewModel(
     val userDetailStateLiveData = _userDetailStateLiveData.asStateFlow()
 
     override fun fetchData() = viewModelScope.launch {
+        Log.d("동현"," _userDetailStateLiveData.value : ${ _userDetailStateLiveData.value}")
         _userDetailStateLiveData.value = ResultState.Success(userLikeEntity)
         setLikeState(userLikeEntity.state)
     }

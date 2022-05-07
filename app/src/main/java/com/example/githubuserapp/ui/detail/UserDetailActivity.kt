@@ -3,6 +3,7 @@ package com.example.githubuserapp.ui.detail
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import com.example.githubuserapp.R
 import com.example.githubuserapp.data.entity.UserLikeEntity
@@ -60,7 +61,6 @@ class UserDetailActivity: BaseActivity<UserDetailViewModel, ActivityUserDetailBi
         binding.userImage.loadCenterCrop(data.avatar_url)
         binding.title.text = data.login
         binding.link.text = data.html_url
-
     }
 
     private fun openWebView(url: String) = startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)))

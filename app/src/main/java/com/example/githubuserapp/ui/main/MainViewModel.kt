@@ -1,7 +1,6 @@
 package com.example.githubuserapp.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.githubuserapp.data.entity.UserLikeEntity
@@ -41,8 +40,8 @@ class MainViewModel(
 
     override fun fetchData(): Job = viewModelScope.launch {
         getGithubUseCase.invoke()
-            .map { it.map {
-                var userLikeEntity = it.toEntity()
+            .map { it.map { githubData ->
+                var userLikeEntity = githubData.toEntity()
                 val userLikeEntityData = getUserLikeUseCase.invoke(userLikeEntity.id).firstOrNull()
 
                 if (userLikeEntityData != null) {
@@ -51,7 +50,6 @@ class MainViewModel(
                 userLikeEntity
             } }
             .onState {
-                Log.d("동현"," : $it")
                 _userState.value = it
             }
     }
